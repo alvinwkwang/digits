@@ -1,16 +1,15 @@
-@(contactForm: Form[views.formdata.ContactFormData])
+@(contactForm: Form[views.formdata.ContactFormData]) 
 
 @import helper._
 
 @Main("newcontact") {
-   <div class="container">
-   @form(routes.Application.postContact(), 'class -> "form-horizontal") {
-   <h1>Add Contact</h1>
+<div class="container">
+  @form(routes.Application.postContact(), 'class -> "form-horizontal")
+  <h1>Add Contact</h1>
   <div class="form-group">
     <label class="col-sm-2 control-label">First</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control"
-             name="@contactForm("firstName").name" 
+      <input type="text" class="form-control" name="@contactForm("firstName").name" 
              id="@contactForm("firstName").id" 
              value="@contactForm("firstName").value"
              placeholder="First Name">
@@ -19,8 +18,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Last</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control"
-             name="@contactForm("lastName").name" 
+      <input type="text" class="form-control" name="@contactForm("lastName").name" 
              id="@contactForm("lastName").id" 
              value="@contactForm("lastName").value"
              placeholder="Last Name">
@@ -29,8 +27,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Phone</label>
     <div class="col-sm-10">
-      <input type="tel" class="form-control"
-             name="@contactForm("telephone").name" 
+      <input type="tel" class="form-control" name="@contactForm("telephone").name" 
              id="@contactForm("telephone").id" 
              value="@contactForm("telephone").value"
              placeholder="Telephone">
@@ -42,5 +39,5 @@
     </div>
   </div>
   }
-   </div>
+</div>
 }
