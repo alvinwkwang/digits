@@ -10,6 +10,7 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
+  private String address;
   private long id;
   
   /**
@@ -18,12 +19,14 @@ public class Contact {
    * @param firstName The first name.
    * @param lastName The last name.
    * @param telephone The telephone number.
+   * @param address The address.
    */
-  public Contact(long id, String firstName, String lastName, String telephone) {
+  public Contact(long id, String firstName, String lastName, String telephone, String address) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
+    this.address = address;
   }
   
   /**
@@ -73,6 +76,22 @@ public class Contact {
    */
   public long getId() {
     return id;
+  }
+
+  /**
+   * Get the address of the contact.
+   * @return Address of contact.
+   */
+  public String getAddress() {
+    return address;
+  }
+
+  /**
+   * Set address of contact.
+   * @param address Address to be set.
+   */
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 }

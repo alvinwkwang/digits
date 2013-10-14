@@ -13,6 +13,7 @@ import play.data.validation.ValidationError;
  */
 public class ContactFormData {
   private static final int NUM_TELEPHONE_DIGITS = 12;
+  private static final int ADDRESS_INPUT_LENGTH = 25;
   
   /** The ID field. */
   public long id;
@@ -22,6 +23,8 @@ public class ContactFormData {
   public String lastName = "";
   /** The telephone number. */
   public String telephone = "";
+  /** The address. */
+  public String address = "";
   
   /**
    * Default constructor for ContactFormData.
@@ -39,6 +42,7 @@ public class ContactFormData {
     this.firstName = contact.getFirstName();
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
+    this.address = contact.getAddress();
   }
   
   /**
@@ -62,6 +66,12 @@ public class ContactFormData {
     
     if (telephone.length() != NUM_TELEPHONE_DIGITS) {
       errors.add(new ValidationError("telephone", "Telephone number must be xxx-xxx-xxxx."));
+    }
+    if (address == null || address.length() == 0) {
+      errors.add(new ValidationError("address", "Address is required."));  
+    }   
+    if (address.length() < ADDRESS_INPUT_LENGTH) {
+      errors.add(new ValidationError("address", "Address must be at least 25 characters."));     
     }
     
     return errors.isEmpty() ? null : errors;
