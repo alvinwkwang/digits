@@ -47,4 +47,12 @@ public class ContactDB {
     }
     return contact;
   }
+  
+  /**
+   * Deletes a contact with the passed in ID.
+   * @param id The ID.
+   */
+  public static void deleteContact(long id) {
+    contacts.remove(id);
+  }
 }

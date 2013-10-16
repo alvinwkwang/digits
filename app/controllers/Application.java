@@ -48,4 +48,14 @@ public class Application extends Controller {
       return ok(NewContact.render(formData));
     }
   }
+  
+  /**
+   * Removes entry from repository.
+   * @param id The ID.
+   * @return The Index page.
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
+  }
 }
