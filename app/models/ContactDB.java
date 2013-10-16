@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
@@ -10,16 +12,18 @@ import views.formdata.ContactFormData;
  *
  */
 public class ContactDB {
-  private static List<Contact> contacts = new ArrayList<>();
+  private static Map<Long, Contact> contacts = new HashMap<>();
+  
   
   /**
-   * Add s contact to the contact list.
+   * Add a contact to the contact list.
    * @param formData Contact data.
    * @return A new contact.
    */
   public static Contact addContact(ContactFormData formData) {
-    Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone);
-    contacts.add(contact);
+    long idVal = (formData.id == 0) ? contacts.size() + 1 : formData.id;
+    Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone, idVal);
+    contacts.put(idVal, contact);
     return contact;
   }
 
@@ -28,6 +32,19 @@ public class ContactDB {
    * @return list of contacts.
    */
   public static List<Contact> getContacts() {
-    return contacts;
+    return new ArrayList<>(contacts.values());
+  }
+  
+  /**
+   * Returns a contact associated with the passed id.
+   * @param id the ID.
+   * @return THe retrieved contact.
+   */
+  public static Contact getContact(long id) {
+    Contact contact = contacts.get(id);
+    if (contact == null) {
+      throw new RuntimeException("Passed a bad id: " + id);
+    }
+    return contact;
   }
 }

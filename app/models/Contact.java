@@ -12,17 +12,21 @@ public class Contact {
   private String lastName;
   /** The telephone number. */
   private String telephone;
+  /** The ID field. */
+  private long id;
   
   /**
    * Constructor for a new contact.
    * @param firstName The first name.
    * @param lastName The last name.
    * @param telephone The telephone number.
+   * @param id The ID field.
    */
-  public Contact(String firstName, String lastName, String telephone) {
+  public Contact(String firstName, String lastName, String telephone, long id) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
+    this.id = id;
   }
   /**
    * @return the firstName
@@ -59,6 +63,12 @@ public class Contact {
    */
   public void setTelephone(String telephone) {
     this.telephone = telephone;
+  }
+  /**
+   * @return the id
+   */
+  public long getId() {
+    return id;
   }
 
 }
