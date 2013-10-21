@@ -15,6 +15,7 @@ public class Global extends GlobalSettings {
    * @param app The application.
    */
   public void onStart(Application app) {
+    
     ContactDB.addContact(new ContactFormData("Alvin", "Wang", "808-111-2222", "Home"));
     ContactDB.addContact(new ContactFormData("John", "Smith", "123-456-7890", "Work"));
     ContactDB.addContact(new ContactFormData("Jane", "Smith", "555-555-5555", "Mobile"));
