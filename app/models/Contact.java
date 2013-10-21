@@ -16,6 +16,8 @@ public class Contact {
   private long id;
   /** The telephone type. */
   private String telephoneType;
+  /** The standing field. */
+  private String standingType;
   
   /**
    * Constructor for a new contact.
@@ -24,13 +26,16 @@ public class Contact {
    * @param telephone The telephone number.
    * @param id The ID field.
    * @param telephoneType The telephone type.
+   * @param standingType The standing.
    */
-  public Contact(String firstName, String lastName, String telephone, long id, String telephoneType) {
+  public Contact(String firstName, String lastName, String telephone, long id, String telephoneType, 
+      String standingType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.id = id;
     this.telephoneType = telephoneType;
+    this.standingType = standingType;
   }
   /**
    * @return the firstName
@@ -85,6 +90,18 @@ public class Contact {
    */
   public void setTelephoneType(String telephoneType) {
     this.telephoneType = telephoneType;
+  }
+  /**
+   * @return the standingType
+   */
+  public String getStandingType() {
+    return standingType;
+  }
+  /**
+   * @param standingType the standingType to set
+   */
+  public void setStandingType(String standingType) {
+    this.standingType = standingType;
   }
 
 }

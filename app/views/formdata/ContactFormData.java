@@ -23,7 +23,10 @@ public class ContactFormData {
   public long id;
   /** The telephone type. */
   public String telephoneType = "";
+  /** The standing field. */
+  public String standingType = "";
   
+
   /**
    * Default constructor for ContactFormData.
    */
@@ -37,12 +40,15 @@ public class ContactFormData {
    * @param lastName The last name.
    * @param telephone The telephone.
    * @param telephoneType The telephone type.
+   * @param standingType The standing type.
    */
-  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType,
+      String standingType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
+    this.standingType = standingType;
   }
 
   /**
@@ -55,6 +61,7 @@ public class ContactFormData {
     this.telephone = contact.getTelephone();
     this.id = contact.getId();
     this.telephoneType = contact.getTelephoneType();
+    this.standingType = contact.getStandingType();
   }
   
   /**
@@ -82,6 +89,10 @@ public class ContactFormData {
     
     if (!TelephoneTypes.isType(telephoneType)) {
       errors.add(new ValidationError("telephoneType", "Telephone type is invalid"));
+    }
+    
+    if (standingType == null || standingType.length() == 0) {
+      errors.add(new ValidationError("standingType", "A standing must be selected."));
     }
     
     return errors.isEmpty() ? null : errors;

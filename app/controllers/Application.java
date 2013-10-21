@@ -1,11 +1,13 @@
 package controllers;
 
+import java.util.List;
 import java.util.Map;
 import models.ContactDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.ContactFormData;
+import views.formdata.Standing;
 import views.formdata.TelephoneTypes;
 import views.html.Index;
 import views.html.NewContact;
@@ -32,7 +34,8 @@ public class Application extends Controller {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
-    return ok(NewContact.render(formData, telephoneTypeMap));
+    List<String> standingType = Standing.getStandingList();
+    return ok(NewContact.render(formData, telephoneTypeMap, standingType));
     
   }
   
@@ -44,13 +47,15 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes();
-      return badRequest(NewContact.render(formData, telephoneTypeMap));
+      List<String> standingType = Standing.getStandingList();
+      return badRequest(NewContact.render(formData, telephoneTypeMap, standingType));
     }
     else {
       ContactFormData data = formData.get();
       ContactDB.addContact(data);
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
-      return ok(NewContact.render(formData, telephoneTypeMap));
+      List<String> standingType = Standing.getStandingList();
+      return ok(NewContact.render(formData, telephoneTypeMap, standingType));
     }
   }
   

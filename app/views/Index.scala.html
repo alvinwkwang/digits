@@ -5,7 +5,7 @@
      <h1>Current Contacts</h1>
      <table class="table table-bordered">
        <thead>
-         <tr><th>First</th><th>Last</th><th>Phone</th><th>Type</th></tr>
+         <tr><th>First</th><th>Last</th><th>Phone</th><th>Type</th><th>Standing</th></tr>
        </thead>
        <tbody>
        @for(contact <- contacts) {
@@ -14,6 +14,7 @@
          <td>@contact.getLastName()</td>
          <td>@contact.getTelephone()</td>
          <td>@contact.getTelephoneType()</td>
+         <td>@contact.getStandingType()</td>
          <td><a class="btn btn-warning btn-xs" href="@routes.Application.newContact(contact.getId())">Edit</a></td>
          <td><a class="btn btn-danger btn-xs" href="@routes.Application.deleteContact(contact.getId())">Delete</a></td>
          </tr>
