@@ -32,6 +32,20 @@ public class ContactFormData {
   }
   
   /**
+  * Create a new ContactFormData object manually.
+  * @param firstName The first name.
+  * @param lastName The last name.
+  * @param telephone The telephone.
+  * @param telephoneType The telephone type.
+  */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
+  }
+  
+  /**
    * Constructor that creates a ContactFormData of an existing contact.
    * @param contact An existing contact.
    */
