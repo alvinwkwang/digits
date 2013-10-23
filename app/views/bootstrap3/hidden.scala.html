@@ -1,6 +1,6 @@
-@(contactForm: Form[views.formdata.ContactFormData])
+@(field: Field)
 
 <input type="hidden"
-            name="@contactForm("id").name"
-            id="@contactForm("id")/.id"
-            value="@contactForm("id").value">
+            name="@field("id").name"
+            id="@field("id")/.id"
+            value="@field("id").value">
