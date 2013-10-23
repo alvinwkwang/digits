@@ -1,0 +1,6 @@
+@(contactForm: Form[views.formdata.ContactFormData])
+
+<input type="hidden"
+            name="@contactForm("id").name"
+            id="@contactForm("id")/.id"
+            value="@contactForm("id").value">
