@@ -24,7 +24,7 @@ public class Application extends Controller {
   }
   
   /**
-   * Returns page1, a simple example of a second page to illustrate navigation.
+   * Returns the NewContact page for add or editing.
    * @param id the ID.
    * @return The NewContact page.
    */
