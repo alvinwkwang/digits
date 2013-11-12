@@ -1,13 +1,21 @@
-@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData])
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm:
+Form[views.formdata.LoginFormData], registrationForm:
+Form[views.formdata.RegistrationFormData])
 
-@import bootstrap3._
+ @import bootstrap3._
 
 @Main(page, isLoggedIn, userInfo) {
-   <div class="container">
-     @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
-     
-     @if(!models.UserInfoDB.adminDefined()){
-       <div class="alert alert-danger">Warning: Admin credentials undefined!</div>
-     }
-   </div>
+<div class="container">
+  <div class="row">
+
+	@loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password")) 
+  
+	@registration(routes.Application.postUser(), registrationForm("name"), registrationForm("email"), registrationForm("password"))
+
+	@if(!models.UserInfoDB.adminDefined()){
+	<div class="alert alert-danger">Warning: Admin credentials
+		undefined!</div>
+	}
+	</div>
+</div>
 }
