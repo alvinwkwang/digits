@@ -29,7 +29,7 @@ public class ApplicationTest {
    */
   @Test
   public void renderTemplate() {
-    Content html = views.html.Index.render(ContactDB.getContacts());
+    Content html = views.html.Index.render(null, null, null, ContactDB.getContacts(null));
     assertThat(contentType(html)).isEqualTo("text/html");
     assertThat(contentAsString(html)).contains("home page");
   }
