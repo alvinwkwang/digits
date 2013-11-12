@@ -55,5 +55,23 @@ public class ContactDB {
    */
   public static void deleteContact(long id) {
     contacts.remove(id);
+    reorganizeIds();
+  }
+  
+  /**
+   * Reorganize id values. (used after deleting).
+   */
+  public static void reorganizeIds() {
+    List<Contact> contactList = new ArrayList<>();
+    contactList = getContacts();
+    Contact tempContact;
+    Map<Long, Contact> tempContacts = new HashMap<>();
+    for (int i = 0; i < contactList.size(); i++) {
+      tempContact = contactList.get(i);
+      tempContact.setId(i + 1);
+      tempContacts.put((long) (i + 1), tempContact);
+    }
+    contacts = new HashMap<>();
+    contacts = tempContacts;
   }
 }

@@ -49,8 +49,8 @@ public class Application extends Controller {
     else {
       ContactFormData data = formData.get();
       ContactDB.addContact(data);
-      Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
-      return ok(NewContact.render(formData, telephoneTypeMap));
+      //Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
+      return ok(Index.render(ContactDB.getContacts()));
     }
   }
   

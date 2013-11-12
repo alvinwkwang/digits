@@ -14,6 +14,7 @@
          <td>@contact.getLastName()</td>
          <td>@contact.getTelephone()</td>
          <td>@contact.getTelephoneType()</td>
+         <td>@contact.getId()</td>
          <td><a class="btn btn-warning btn-xs" href="@routes.Application.newContact(contact.getId())">Edit</a></td>
          <td><a class="btn btn-danger btn-xs" href="@routes.Application.deleteContact(contact.getId())">Delete</a></td>
          </tr>

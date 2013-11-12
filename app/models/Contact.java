@@ -75,6 +75,12 @@ public class Contact {
     return id;
   }
   /**
+   * @param id the id to set
+   */
+  public void setId(long id) {
+    this.id = id;
+  }
+  /**
    * @return the telephoneType
    */
   public String getTelephoneType() {
