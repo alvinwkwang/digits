@@ -23,7 +23,9 @@ public class ContactDB {
    */
   public static Contact addContact(String user, ContactFormData formData) {
     long idVal = (formData.id == 0) ? contacts.size() + 1 : formData.id;
-    Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone, idVal,
+    //System.out.println("Current Size: " + contacts.size());
+    //System.out.println("ID: " + idVal);
+    Contact contact = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone,
         formData.telephoneType);
     if (!isUser(user)) {
       contacts.put(user, new HashMap<Long, Contact>());
@@ -39,7 +41,7 @@ public class ContactDB {
    */
   public static List<Contact> getContacts(String user) {
     if (!isUser(user)) {
-      return null;
+      return new ArrayList<>();
     }
     return new ArrayList<>(contacts.get(user).values());
   }
@@ -77,7 +79,7 @@ public class ContactDB {
    */
   public static void deleteContact(String user, long id) {
     contacts.get(user).remove(id);
-    //reorganizeIds(user);
+   // reorganizeIds(user);
   }
   
   /**
@@ -97,6 +99,6 @@ public class ContactDB {
     }
     contacts = new HashMap<String, Map<Long, Contact>>();
     contacts = tempContacts;
-  }
-  */
+  }*/
+  
 }

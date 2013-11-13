@@ -20,7 +20,7 @@ public class ContactFormData {
   /** The telephone number. */
   public String telephone = "";
   /** The ID field. */
-  public long id = 0;
+  public long id;
   /** The telephone type. */
   public String telephoneType = "";
   
@@ -31,29 +31,36 @@ public class ContactFormData {
     
   }
   
+
+  
   /**
   * Create a new ContactFormData object manually.
+  * @param id The ID.
   * @param firstName The first name.
   * @param lastName The last name.
   * @param telephone The telephone.
   * @param telephoneType The telephone type.
-  */
-  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+  *
+  public ContactFormData(long id, String firstName, String lastName, String telephone, String telephoneType) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
   }
+  */
+
+  
   
   /**
    * Constructor that creates a ContactFormData of an existing contact.
    * @param contact An existing contact.
    */
   public ContactFormData(Contact contact) {
+    this.id = contact.getId();
     this.firstName = contact.getFirstName();
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
-    this.id = contact.getId();
     this.telephoneType = contact.getTelephoneType();
   }
   

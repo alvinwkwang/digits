@@ -3,7 +3,7 @@
 @Main(page, isLoggedIn, userInfo) {
    <div class="container">
    @if(isLoggedIn) {
-     <h1>Current Contacts</h1>
+     <h1>Current Contacts for @userInfo.getName()</h1>
      <table class="table table-bordered">
        <thead>
          <tr><th>First</th><th>Last</th><th>Phone</th><th>Type</th></tr>

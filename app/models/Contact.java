@@ -25,11 +25,11 @@ public class Contact {
    * @param id The ID field.
    * @param telephoneType The telephone type.
    */
-  public Contact(String firstName, String lastName, String telephone, long id, String telephoneType) {
+  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
-    this.id = id;
     this.telephoneType = telephoneType;
   }
   /**
