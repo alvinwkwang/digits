@@ -23,7 +23,8 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   public static Result index() {
-    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    String user = Secured.getUser(ctx());
+    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts(user)));
   }
   
   /**
@@ -33,7 +34,8 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContact(long id) {
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    String user = Secured.getUser(ctx());
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
     return ok(NewContact.render("New", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
@@ -48,6 +50,7 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result postContact() {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
+    String user = Secured.getUser(ctx());
     if (formData.hasErrors()) {
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes();
       return badRequest(NewContact.render("New", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
@@ -55,10 +58,10 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = formData.get();
-      ContactDB.addContact(data);
+      ContactDB.addContact(user, data);
       //Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
       return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
-          ContactDB.getContacts()));
+          ContactDB.getContacts(user)));
     }
   }
   
@@ -67,9 +70,11 @@ public class Application extends Controller {
    * @param id The ID.
    * @return The Index page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
-    ContactDB.deleteContact(id);
-    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    String user = Secured.getUser(ctx());
+    ContactDB.deleteContact(user, id);
+    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts(user)));
   }
   
   /**
