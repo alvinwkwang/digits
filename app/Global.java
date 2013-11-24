@@ -10,7 +10,7 @@ import views.formdata.ContactFormData;
  * Initializes activity upon startup.
  * @author Alvin Wang
  *
- */
+ */ 
 public class Global extends GlobalSettings {
  
   /**
