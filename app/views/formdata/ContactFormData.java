@@ -13,14 +13,14 @@ import play.data.validation.ValidationError;
 public class ContactFormData {
   private static final int NUM_TELEPHONE_DIGITS = 12;
   
+  /** The ID field. */
+  public long id = -1;
   /** The first name. */
   public String firstName = "";
   /** The last name. */
   public String lastName = "";
   /** The telephone number. */
   public String telephone = "";
-  /** The ID field. */
-  public long id;
   /** The telephone type. */
   public String telephoneType = "";
   
@@ -35,20 +35,18 @@ public class ContactFormData {
   
   /**
   * Create a new ContactFormData object manually.
-  * @param id The ID.
   * @param firstName The first name.
   * @param lastName The last name.
   * @param telephone The telephone.
   * @param telephoneType The telephone type.
-  *
-  public ContactFormData(long id, String firstName, String lastName, String telephone, String telephoneType) {
-    this.id = id;
+  */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
   }
-  */
+
 
   
   

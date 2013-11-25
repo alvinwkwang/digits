@@ -1,9 +1,6 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
@@ -11,27 +8,34 @@ import views.formdata.ContactFormData;
  * @author Alvin Wang
  *
  */
-public class ContactDB {
-  private static Map<String, Map<Long, Contact>> contacts = new HashMap<String, Map<Long, Contact>>();
-  
+public class ContactDB {  
   
   /**
    * Add a contact to the contact list.
    * @param user User.
    * @param formData Contact data.
-   * @return A new contact.
    */
-  public static Contact addContact(String user, ContactFormData formData) {
-    long idVal = (formData.id == 0) ? contacts.size() + 1 : formData.id;
-    //System.out.println("Current Size: " + contacts.size());
-    //System.out.println("ID: " + idVal);
-    Contact contact = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone,
-        formData.telephoneType);
-    if (!isUser(user)) {
-      contacts.put(user, new HashMap<Long, Contact>());
+  public static void addContact(String user, ContactFormData formData) {
+    boolean isNewContact = (formData.id == -1);
+    if (isNewContact) {
+      Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone, formData.telephoneType);
+      UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+      if (userInfo == null) {
+        throw new RuntimeException("Could not find user: " + user);
+      }
+      userInfo.addContact(contact);
+      contact.setUserInfo(userInfo);
+      contact.save();
+      userInfo.save();
     }
-    contacts.get(user).put(idVal, contact);
-    return contact;
+    else {
+      Contact contact = Contact.find().byId(formData.id);
+      contact.setFirstName(formData.firstName);
+      contact.setLastName(formData.lastName);
+      contact.setTelephone(formData.telephone);
+      contact.setTelephoneType(formData.telephoneType);
+      contact.save();
+    }
   }
 
   /**
@@ -40,10 +44,13 @@ public class ContactDB {
    * @return list of contacts.
    */
   public static List<Contact> getContacts(String user) {
-    if (!isUser(user)) {
-      return new ArrayList<>();
+    UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+    if (userInfo == null) {
+      return null;
     }
-    return new ArrayList<>(contacts.get(user).values());
+    else {
+      return userInfo.getContacts();
+    }
   }
   
   /**
@@ -52,7 +59,7 @@ public class ContactDB {
    * @return True if user is defined.
    */
   public static boolean isUser(String user) {
-    return contacts.containsKey(user);
+    return (UserInfo.find().where().eq("email", user).findUnique() != null);
   }
   
   /**
@@ -62,12 +69,13 @@ public class ContactDB {
    * @return THe retrieved contact.
    */
   public static Contact getContact(String user, long id) {
-    if (!isUser(user)) {
-      throw new RuntimeException("Passed a bad user: " + user);
-    }
-    Contact contact = contacts.get(user).get(id);
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
-      throw new RuntimeException("Passed a bad id: " + id);
+      throw new RuntimeException("Contact ID not found: " + id);
+    }
+    UserInfo userInfo = contact.getUserInfo();
+    if (!user.equals(userInfo.getEmail())) {
+      throw new RuntimeException("User is not same one store with the contect.");
     }
     return contact;
   }
@@ -78,27 +86,9 @@ public class ContactDB {
    * @param id The ID.
    */
   public static void deleteContact(String user, long id) {
-    contacts.get(user).remove(id);
-   // reorganizeIds(user);
+    Contact contact = Contact.find().byId(id);
+    UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+    userInfo.deleteContact(contact);
+    userInfo.save();
   }
-  
-  /**
-   * Reorganize id values. (used after deleting).
-   * @param user User.
-   */
-  /*
-  public static void reorganizeIds(String user) {
-    List<Contact> contactList = new ArrayList<>();
-    contactList = getContacts(user);
-    Contact tempContact;
-    Map<String, Map<Long, Contact>> tempContacts = new HashMap<String, Map<Long, Contact>>();
-    for (int i = 0; i < contactList.size(); i++) {
-      tempContact = contactList.get(i);
-      tempContact.setId(i + 1);
-      tempContacts.get(user).put((long) (i + 1), tempContact);
-    }
-    contacts = new HashMap<String, Map<Long, Contact>>();
-    contacts = tempContacts;
-  }*/
-  
 }
