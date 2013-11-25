@@ -24,17 +24,11 @@ public class Global extends GlobalSettings {
     
     UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
     
-    long id = 1;
-    
-    if (UserInfoDB.adminDefined()) {
-      ContactDB.addContact(adminEmail, new ContactFormData(new Contact(id++, "Bruce", "Wayne", "123-456-7890",
-          "Home")));
-      ContactDB.addContact(adminEmail, new ContactFormData(new Contact(id++, "Clark", "Kent", "123-456-7890", 
-          "Work")));
-      ContactDB.addContact(adminEmail, new ContactFormData(new Contact(id++, "Tony", "Stark", "123-456-7890", 
-          "Mobile")));
-      ContactDB.addContact(adminEmail, new ContactFormData(new Contact(id++, "Bruce", "Banner", "123-456-7890",
-          "Work")));
+    if (UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()) {
+      ContactDB.addContact(adminEmail, new ContactFormData(new Contact("Bruce", "Wayne", "123-456-7890", "Home")));
+      ContactDB.addContact(adminEmail, new ContactFormData(new Contact("Clark", "Kent", "123-456-7890", "Work")));
+      ContactDB.addContact(adminEmail, new ContactFormData(new Contact("Tony", "Stark", "123-456-7890", "Mobile")));
+      ContactDB.addContact(adminEmail, new ContactFormData(new Contact("Bruce", "Banner", "123-456-7890", "Work")));
     }
   }
 }

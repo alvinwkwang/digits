@@ -20,7 +20,7 @@ public class ContactFormData {
   /** The telephone number. */
   public String telephone = "";
   /** The ID field. */
-  public long id;
+  public long id = -1;
   /** The telephone type. */
   public String telephoneType = "";
   
