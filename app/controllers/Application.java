@@ -16,7 +16,7 @@ import views.html.Login;
 import views.html.NewContact;
 
 /**
- * Implements the controllers for this application.
+ * Implements the controllers for this application. 
  */
 public class Application extends Controller {
 
